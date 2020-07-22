@@ -47,7 +47,7 @@ gulp.task("build-js", () => {
 });
 
 gulp.task("build-sass", () => {
-    return gulp.src("./src/css/**/*.css")
+    return gulp.src("./src/sass/**/*.sass")
                 .pipe(sass().on('error', sass.logError))
                 .pipe(gulp.dest(dist + '/css'))
                 .pipe(browsersync.stream());
@@ -73,12 +73,13 @@ gulp.task("watch", () => {
     gulp.watch("./src/icons/**/*.*", gulp.parallel("copy-assets"));
     gulp.watch("./src/img/**/*.*", gulp.parallel("copy-assets"));
     //gulp.watch("./src/scss/**/*.scss", gulp.parallel("build-sass"));
-    gulp.watch("./src/css/**/*.css", gulp.parallel("build-sass")); // if you have no SCSS or SASS;
+    gulp.watch("./src/sass/**/*.sass", gulp.parallel("build-sass")); // if you have no SCSS or SASS;
     gulp.watch("./src/js/**/*.js", gulp.parallel("build-js"));
 });
 
 gulp.task("build", gulp.parallel("copy-html", "copy-assets", "build-sass", "build-js"));
 
+// смотеть пути дл CSS Sass
 gulp.task("prod", () => {
     gulp.src("./src/index.html")
         .pipe(gulp.dest(dist));

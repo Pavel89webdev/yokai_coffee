@@ -1891,6 +1891,7 @@ html, body {
   background-color: #f1f2f2;
   min-height: 520px; }
   .promo__wrapper {
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -1898,6 +1899,26 @@ html, body {
     min-height: 520px;
     width: 100%;
     background: url("../img/logo/logo_face.png") center center/450px 450px no-repeat; }
+  .promo__contacts {
+    position: absolute;
+    bottom: 20px;
+    right: 0px;
+    font-size: 16px; }
+    .promo__contacts a {
+      color: #000000; }
+      .promo__contacts a:hover {
+        text-decoration: none; }
+  .promo__instagram {
+    position: absolute;
+    bottom: 50%;
+    right: 0px;
+    font-size: 16px;
+    line-height: 1;
+    transform: translateX(40%) rotate(-90deg); }
+    .promo__instagram a {
+      color: #000000; }
+      .promo__instagram a:hover {
+        text-decoration: none; }
 
 .title {
   color: #000000; }
@@ -1907,3 +1928,69 @@ html, body {
   .title_secondary {
     font-size: 24px;
     font-weight: 500; }
+  .title__section-title_main {
+    display: block;
+    width: 100%;
+    font-weight: 600;
+    font-size: 36px;
+    text-align-last: left; }
+    .title__section-title_main::after {
+      content: '';
+      display: block;
+      margin-top: 15px;
+      width: 60px;
+      height: 1.8px;
+      background-color: #000000; }
+
+.declaration {
+  width: 100%;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+  .declaration__text {
+    display: block;
+    font-size: 16px;
+    text-align: center; }
+    .declaration__text_red {
+      color: #b40a1b; }
+
+.section_white {
+  background-color: #fff; }
+
+.section__showcase {
+  min-height: 1000px; }
+
+.section__main-title {
+  min-height: 86px;
+  margin-top: 30px; }
+
+.tabs {
+  width: 100%;
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 41px; }
+  .tabs__inner {
+    width: 70%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+    .tabs__inner__tab {
+      width: 30%;
+      height: 100%;
+      display: block;
+      line-height: 1;
+      text-align: center;
+      font-size: 16px;
+      color: #777777; }
+      .tabs__inner__tab:after {
+        content: '';
+        display: block;
+        margin-top: 18px;
+        width: 100%;
+        height: 1.8px;
+        background-color: #777;
+        opacity: .2; }

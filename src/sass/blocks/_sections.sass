@@ -1,8 +1,50 @@
 .section
     &_white
         background-color: #fff
+    &_gray
+        background-color: $bg_grey
     &__showcase 
         min-height: 1000px
     &__main-title
         min-height: 86px
         margin-top: 30px
+    &__about-us
+        margin-top: 0px
+        padding: 45px 0
+        min-height: 500px
+        width: 100%
+        &__item
+            height: 500px
+        &__img
+            display: flex
+            justify-content: flex-end
+            align-items: flex-start
+            &_left
+                justify-content: flex-start
+            &__wrapper
+                display: block
+                width: 90%
+                height: 90%
+                overflow: hidden
+                & img 
+                    height: 100%                
+
+    &__delivery
+        min-height: 500px
+        padding: 45px 0
+        width: 100%
+    &__subtitle
+        margin-top: 50px
+        display: block
+        text-align: center
+        font-size: 36px
+        font-weight: 600
+    &__text
+        display: block
+        line-height: 1.7
+        text-align: left
+        &_center
+            text-align: center
+            & span
+                font-weight: 600
+        

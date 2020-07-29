@@ -2110,6 +2110,8 @@ html, body {
     text-align: left;
     font-size: 14px;
     font-weight: 400; }
+    .item__descr_hide {
+      display: none; }
   .item__prise {
     display: block;
     margin-top: 10px;
@@ -2194,15 +2196,16 @@ html, body {
     background-color: rgba(0, 0, 0, 0.7);
     z-index: 10; }
   .modal__fixed-close {
-    position: fixed;
     display: block;
     font-size: 40px;
+    text-align: right;
+    width: 100%;
+    padding-right: 50px;
+    margin-top: 40px;
     line-height: 1;
-    width: 40px;
+    width: 100%;
     height: 40px;
     color: #fff;
-    top: 40px;
-    right: 60px;
     cursor: pointer; }
   .modal__item-card {
     display: flex;
@@ -2270,7 +2273,35 @@ html, body {
         display: block;
         width: 100%;
         height: 100%;
-        overflow: hidden; } }
+        overflow: hidden; }
+  .modal__descr {
+    width: 100%;
+    margin-top: 40px; }
+    .modal__descr__title {
+      font-size: 24px; }
+    .modal__descr__price {
+      font-size: 20px; }
+    .modal__descr__subtitle {
+      font-size: 18px; }
+    .modal__descr__text {
+      font-size: 16px; }
+  .modal__select {
+    font-size: 18px;
+    margin-left: 1px;
+    height: 42px; }
+  .modal__item-card {
+    margin-top: 30px;
+    flex-direction: column; }
+  .modal__img {
+    width: 70%;
+    display: block;
+    margin: 0 auto; }
+  .modal__fixed-close {
+    position: static;
+    text-align: right;
+    width: 100%;
+    padding-right: 50px;
+    margin-top: 40px; } }
 
 @media (max-width: 768px) {
   .tabs {
@@ -2324,4 +2355,21 @@ html, body {
   .footer__copyright {
     text-align: center; }
   .footer__attention {
-    width: 90%; } }
+    width: 90%; }
+  .modal__img {
+    width: 100%; }
+  .modal__descr {
+    padding: 0 0; }
+    .modal__descr__title {
+      font-size: 20px; }
+    .modal__descr__prise {
+      font-size: 16px; }
+    .modal__descr__subtitle {
+      font-size: 16px; }
+    .modal__descr__text {
+      font-size: 14px; }
+  .modal__select {
+    font-size: 16px; }
+  .modal__fixed-close {
+    margin-top: 10px;
+    padding-right: 20px; } }

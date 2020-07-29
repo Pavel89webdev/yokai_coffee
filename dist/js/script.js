@@ -138,14 +138,20 @@ items.forEach(item => {
 
 function renderModalFrom(item) {
   const itemTitle = item.children[0].children[1].innerHTML,
-        itemPrise = item.children[0].children[4].innerHTML,
-        itemDescr1 = item.children[0].children[2].innerHTML;
+        itemPrise = item.children[0].children[5].innerHTML,
+        itemDescr1 = item.children[0].children[2].innerHTML,
+        itemDescr2 = item.children[0].children[3].innerHTML,
+        itemDescr3 = item.children[0].children[4].innerHTML;
   let modalTitle = document.querySelector('.modal__descr__title'),
       modalPrise = document.querySelector('.modal__descr__price'),
-      modalDescr1 = document.querySelector('.modal__descr__text_1');
+      modalDescr1 = document.querySelector('.modal__descr__text_1'),
+      modalDescr2 = document.querySelector('.modal__descr__text_2'),
+      modalDescr3 = document.querySelector('.modal__descr__text_3');
   modalTitle.textContent = itemTitle;
   modalPrise.textContent = itemPrise;
-  modalDescr1.textContent = itemDescr1;
+  modalDescr1.innerHTML = itemDescr1;
+  modalDescr2.innerHTML = itemDescr2;
+  modalDescr3.innerHTML = itemDescr3;
 }
 
 function showModal() {
@@ -156,15 +162,19 @@ function showModal() {
 } // add event listener to close modal
 
 
-let closeModalIcon = document.querySelector('.modal__fixed-close');
-closeModalIcon.addEventListener('click', closeModal);
+let modal = document.querySelector('.modal');
+modal.addEventListener('click', event => {
+  if (event.target.classList.contains('modal__fixed-overlay') || event.target.classList.contains('modal__fixed-close')) {
+    closeModal();
+  }
+});
 
 function closeModal() {
   const modal = document.querySelector('.modal_active'),
         body = document.querySelector('body');
   modal.classList.remove('modal_active');
   body.classList.remove('body_blocked');
-}
+} // shopping basket
 
 /***/ })
 

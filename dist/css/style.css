@@ -2135,11 +2135,13 @@ html, body {
   font-size: 13px;
   text-transform: uppercase;
   border: 1px solid #d1d3d4;
-  transition: .3s all;
+  transition: .1s all;
   cursor: pointer; }
   .btn__item:hover {
     background-color: #000;
     color: #fff; }
+  .btn__item:active {
+    transform: scale(0.95); }
 
 .footer {
   padding: 90px 0;
@@ -2250,7 +2252,7 @@ html, body {
     font-size: 12px;
     min-height: 60px; }
     .item__descr__body {
-      min-height: 20px; }
+      min-height: 44px; }
   .section__about-us {
     min-height: 70px;
     width: 100%; }

@@ -2144,6 +2144,11 @@ html, body {
     color: #fff; }
   .btn__item:active {
     transform: scale(0.95); }
+  .btn__item_wide {
+    width: 100%; }
+  .btn__item_black {
+    background-color: #000000;
+    color: #fff; }
 
 .footer {
   padding: 90px 0;
@@ -2247,6 +2252,165 @@ html, body {
     .modal__descr__text {
       margin-top: 20px;
       line-height: 1.5; }
+
+.basket {
+  position: fixed;
+  top: 20px;
+  right: 40px;
+  width: 80px;
+  height: 80px;
+  background-color: #fff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 14px 0px #646464;
+  cursor: pointer;
+  transition: .1s all; }
+  .basket:active {
+    transform: scale(0.95); }
+  .basket img {
+    width: 55%; }
+  .basket__items {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 1;
+    color: #fff;
+    bottom: -10px;
+    right: -10px;
+    background-color: #ff0000;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%; }
+
+hr {
+  height: 0px;
+  background-color: rgba(0, 0, 0, 0.3); }
+
+.basket-window {
+  display: none; }
+  .basket-window_active {
+    display: block; }
+  .basket-window__fixed-close {
+    display: block;
+    font-size: 40px;
+    text-align: right;
+    width: 100%;
+    padding-right: 50px;
+    margin-top: 40px;
+    line-height: 1;
+    width: 100%;
+    height: 40px;
+    color: #fff;
+    cursor: pointer; }
+  .basket-window__fixed-overlay {
+    position: fixed;
+    overflow: auto;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 10; }
+  .basket-window__content {
+    display: block;
+    margin-top: 40px;
+    padding: 40px;
+    width: 100%;
+    min-height: 500px;
+    background-color: #fff; }
+  .basket-window__item {
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100px; }
+    .basket-window__item__img {
+      width: 70px;
+      height: 70px;
+      border-radius: 5px;
+      overflow: hidden; }
+      .basket-window__item__img img {
+        width: 100%; }
+    .basket-window__item__wrapper {
+      margin-left: 20px; }
+    .basket-window__item__title {
+      font-size: 20px;
+      width: 165px;
+      font-weight: 500; }
+    .basket-window__item__subtitle {
+      font-size: 14px; }
+    .basket-window__item__qantity {
+      width: 100px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center; }
+      .basket-window__item__qantity .plus-minus {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        border: 1px solid #000;
+        cursor: pointer; }
+        .basket-window__item__qantity .plus-minus img {
+          width: 100%; }
+    .basket-window__item__price {
+      margin-left: 20px; }
+    .basket-window__item__delete {
+      margin-left: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 1px solid #000;
+      cursor: pointer; }
+      .basket-window__item__delete img {
+        width: 140%;
+        transform: rotate(45deg); }
+  .basket-window__summ {
+    display: block;
+    text-align: right;
+    font-size: 16px;
+    font-weight: 500; }
+  .basket-window__message {
+    margin-top: 40px;
+    display: block;
+    text-align-last: left;
+    font-size: 14px; }
+  .basket-window__form__text {
+    margin-top: 40px;
+    display: block;
+    text-align: left;
+    font-size: 18px; }
+  .basket-window__form__input {
+    height: 55px;
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+    outline: none; }
+    .basket-window__form__input__payment {
+      height: 40px;
+      width: 20px; }
+      .basket-window__form__input__payment:active {
+        color: #000; }
+  .basket-window__form__input-wrapper {
+    display: flex;
+    width: 100%;
+    justify-content: flex-start;
+    align-items: center; }
+    .basket-window__form__input-wrapper p {
+      margin: 0px 0 0 40px;
+      height: 100%; }
+  .basket-window__form__button {
+    width: 100%;
+    margin-top: 40px; }
 
 @media (max-width: 992px) {
   .tabs__selector__tab {

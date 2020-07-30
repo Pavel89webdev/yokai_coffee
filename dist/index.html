@@ -468,11 +468,89 @@
                 </div>
             </div>
         </div>
-
-        
     </section>
 
+    <div class="basket">
+        <img src="img/icons/shopping_basket.svg" alt="shopping-basket">
+        <div class="basket__items">1</div>
+    </div>
 
+    <div class="basket-window basket-window__fixed-overlay">
+        <div class="basket-window__fixed-close">&#10005;</div>
+        <div class="container"> 
+            <div class="basket-window__content offset-md-3 col-sm-6 offset-md-3">
+                <div class="section__main-title__wrapper">
+                    <div class="title__section-title_main">Ваш заказ:</div>
+
+                    <div class="basket-window__item">
+                        <div class="basket-window__item__img">
+                            <img src="img/products/colombia.jpg" alt="">
+                        </div>
+                        <div class="basket-window__item__wrapper">
+                            <div class="basket-window__item__title">
+                                Ethiopia Yergacheffe
+                            </div>
+                            <div class="basket-window__item__subtitle">
+                                Упаковка: 250 гр.
+                            </div>
+                        </div>
+                        <div class="basket-window__item__qantity">
+                            <div class="plus-minus">
+                                <img src="img/icons/minus.svg" alt="minus">
+                            </div>
+                            <div class="basket-window__item__qantity__text">1</div>
+                            <div class="plus-minus">
+                                <img src="img/icons/plus.svg" alt="plus">
+                            </div>
+                        </div>
+                        <div class="basket-window__item__price">
+                            520 р.
+                        </div>
+                        <div class="basket-window__item__delete">
+                            <img src="img/icons/plus.svg" alt="delete">
+                        </div>
+                    </div>
+                    
+                    <hr>
+
+                    <div class="basket-window__summ">Сумма: 0 р.</div>
+                    <div class="basket-window__message">
+                        Оплата временно осуществляется только при получении картой или наличными.
+                    </div>
+
+                    <form class="basket-window__form" action="#">
+                        <div class="basket-window__form__text">
+                            Ваше имя
+                        </div>
+                        <input name="name" required placeholder="Имя" type="text" class="basket-window__form__input">
+                        <div class="basket-window__form__text">
+                            Ваш Email
+                        </div>
+                        <input name="email" required placeholder="email@email.com" type="email" class="basket-window__form__input">
+                        <div class="basket-window__form__text">
+                            Ваш телефон
+                        </div>
+                        <input name="tel" required placeholder="+7(999)999-99-99" type="tel" class="basket-window__form__input">
+                        <div class="basket-window__form__text">
+                            Способ оплаты
+                        </div>
+                        <div class="basket-window__form__input-wrapper">
+                            <input name="payment" checked value="pay_by_card" type="radio" class="basket-window__form__input__payment">
+                            <p>Безналичная оплата</p>
+                        </div>
+                        <div class="basket-window__form__input-wrapper">
+                            <input name="payment" checked value="pay_by_card" type="radio" class="basket-window__form__input__payment">
+                            <p>Наличными при получении</p>
+                        </div>
+                        <div class="basket-window__form__button">
+                            <button class="btn__item btn__item_wide btn__item_black">Оформить заказ</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
 
     <script src="js/script.js"></script>
 

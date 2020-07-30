@@ -2,6 +2,8 @@
 
 let currentID = 1;
 
+const body = document.querySelector('body');
+
 tabs('tabs__selector', 'tabs__selector__tab', 'tab');
 
 function tabs(tabsSelectorClass, tabsSelectorTabClass, tabClass){
@@ -35,12 +37,10 @@ function tabs(tabsSelectorClass, tabsSelectorTabClass, tabClass){
 let items = document.querySelectorAll('.item');
 
 items.forEach( item => {
-    console.log(item.children[0].children[2].innerHTML);
     item.addEventListener('click', (event) => {
         if(event.target.getAttribute('id') == 'details' || event.target.getAttribute('id') != 'order'){
             renderModalFrom(item);
             showModal(); 
-            
         }
     });
 });
@@ -67,8 +67,7 @@ function renderModalFrom(item){
 
 
 function showModal(){
-    const modal = document.querySelector('.modal'),
-          body = document.querySelector('body');
+    const modal = document.querySelector('.modal');
 
     modal.classList.add('modal_active');
     body.classList.add('body_blocked');
@@ -85,8 +84,7 @@ modal.addEventListener('click', (event) => {
 });
 
 function closeModal(){
-    const modal = document.querySelector('.modal_active'),
-          body = document.querySelector('body');
+    const modal = document.querySelector('.modal_active');
 
     modal.classList.remove('modal_active');
     body.classList.remove('body_blocked');
@@ -94,5 +92,51 @@ function closeModal(){
 
 
 // shopping basket
+const basketIcon = document.querySelector('.basket'),
+      basketWindow = document.querySelector('.basket-window');
+
+// add event listeners to open and close basket-window
+basketIcon.addEventListener('click', openBasketWindow);
+basketWindow.addEventListener('click', (event) => {
+    if(
+        event.target.classList.contains('basket-window__fixed-overlay') || 
+        event.target.classList.contains('container') ||
+        event.target.classList.contains('basket-window__fixed-close')){
+            closeBasketWindow();
+    }
+});
+
+//open basket
+function openBasketWindow(){
+    basketWindow.classList.add('basket-window_active');
+    body.classList.add('body_blocked');
+}
+
+//close basket
+function closeBasketWindow(){
+    basketWindow.classList.remove('basket-window_active');
+    body.classList.remove('body_blocked');
+}
+
+//chek LS [basket]..
+
+//post items to LocalStorage
+items.forEach( item => {
+    item.addEventListener('click', (event) => {
+        if(event.target.getAttribute('id') == 'order'){
+            //?  get basket from KS
+            //push to LS [basket]
+            //item++ on baslet icon
+            //and shoe basket icon!
+        }
+    });
+});
+//get items from LocalStorage
+
+// post items to basket window
+
+// change # of items on basket icon
+
+
 
 

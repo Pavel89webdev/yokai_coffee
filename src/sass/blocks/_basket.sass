@@ -1,4 +1,5 @@
 .basket
+    display: none
     position: fixed
     top: 20px
     right: 40px
@@ -6,12 +7,15 @@
     height: 80px
     background-color: #fff
     border-radius: 50%
-    display: flex
     justify-content: center
     align-items: center
     box-shadow: 0 0 14px 0px #646464
     cursor: pointer
     transition: .1s all
+    &_active
+        display: flex
+    &_animated
+        animation: scale-animation .2s ease 0s 2 alternate
     &:active
         transform: scale(.95)
     & img

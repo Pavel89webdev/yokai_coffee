@@ -2254,6 +2254,7 @@ html, body {
       line-height: 1.5; }
 
 .basket {
+  display: none;
   position: fixed;
   top: 20px;
   right: 40px;
@@ -2261,12 +2262,15 @@ html, body {
   height: 80px;
   background-color: #fff;
   border-radius: 50%;
-  display: flex;
   justify-content: center;
   align-items: center;
   box-shadow: 0 0 14px 0px #646464;
   cursor: pointer;
   transition: .1s all; }
+  .basket_active {
+    display: flex; }
+  .basket_animated {
+    animation: scale-animation .2s ease 0s 2 alternate; }
   .basket:active {
     transform: scale(0.95); }
   .basket img {
@@ -2490,7 +2494,14 @@ hr {
   .header__logo {
     max-width: 40%; }
   .footer__attention {
-    text-align: center; } }
+    text-align: center; }
+  .basket-window__content {
+    padding: 30px; }
+  .basket-window__item__title {
+    font-size: 18px;
+    width: 140px; }
+  .basket-window__item__img {
+    display: none; } }
 
 @media (max-width: 575px) {
   .title_main {
@@ -2536,4 +2547,37 @@ hr {
     font-size: 16px; }
   .modal__fixed-close {
     margin-top: 10px;
-    padding-right: 20px; } }
+    padding-right: 20px; }
+  .basket-window__fixed-close {
+    margin-top: 20px; }
+  .basket-window__content {
+    padding: 20px;
+    margin-top: 20px; }
+  .basket-window__item {
+    flex-wrap: wrap; }
+    .basket-window__item__wrapper {
+      margin-left: 0px;
+      margin-bottom: 20px; }
+    .basket-window__item__title {
+      font-size: 16px;
+      width: 100%; }
+    .basket-window__item__img {
+      display: none; }
+  .basket-window__form__input-wrapper p {
+    margin: 0 0 0 20px; }
+  .basket {
+    width: 40px;
+    height: 40px;
+    top: 60px;
+    right: 10px; }
+    .basket__items {
+      width: 20px;
+      height: 20px;
+      bottom: -5px;
+      right: -5px; } }
+
+@keyframes scale-animation {
+  0% {
+    transform: scale(1); }
+  100% {
+    transform: scale(1.1); } }

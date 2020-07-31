@@ -82,6 +82,15 @@
         max-width: 40%
     .footer__attention
         text-align: center
+    .basket-window
+        &__content
+            padding: 30px
+        &__item
+            &__title
+                font-size: 18px
+                width: 140px
+            &__img
+                display: none
 
 
 @media (max-width: 575px)
@@ -134,3 +143,33 @@
         &__fixed-close
             margin-top: 10px
             padding-right: 20px
+    .basket-window
+        &__fixed-close
+            margin-top: 20px
+        &__content
+            padding: 20px
+            margin-top: 20px
+        &__item
+            flex-wrap: wrap
+            &__wrapper
+                margin-left: 0px
+                margin-bottom: 20px
+            &__title
+                font-size: 16px
+                width: 100%
+            &__img
+                display: none
+        &__form__input-wrapper p
+            margin: 0 0 0 20px
+    .basket
+        width: 40px
+        height: 40px
+        top: 60px
+        right: 10px
+        &__items
+            width: 20px
+            height: 20px
+            bottom: -5px
+            right: -5px
+            
+     

@@ -42,6 +42,13 @@ items.forEach( item => {
             renderModalFrom(item);
             showModal(); 
         }
+
+        if(event.target.getAttribute('id') == 'order'){
+
+            addOneItemToLS( item );
+            showOrHideBasketIcon('basket');
+            basketFromLSToBasketWindow(getBasketObj('basket'));
+        }
     });
 });
 
@@ -63,6 +70,16 @@ function renderModalFrom(item){
     modalDescr1.innerHTML = itemDescr1;
     modalDescr2.innerHTML = itemDescr2;
     modalDescr3.innerHTML = itemDescr3;
+
+    modal.addEventListener('click', (event) => {
+        if( event.target.getAttribute('id') == 'order'){
+            let value = +document.querySelector('#quantity').value;
+            addNumberOfItemToLS( item, value );
+            showOrHideBasketIcon('basket');
+            basketFromLSToBasketWindow(getBasketObj('basket'));
+        }
+    });
+
 }
 
 
@@ -118,25 +135,233 @@ function closeBasketWindow(){
     body.classList.remove('body_blocked');
 }
 
-//chek LS [basket]..
+//check LS [basket]..
+let basketObj = {};
 
-//post items to LocalStorage
-items.forEach( item => {
-    item.addEventListener('click', (event) => {
-        if(event.target.getAttribute('id') == 'order'){
-            //?  get basket from KS
-            //push to LS [basket]
-            //item++ on baslet icon
-            //and shoe basket icon!
+
+//clean for test
+window.localStorage.clear();
+
+//chek LS
+
+function setBasketObj(key, basketObj){
+    window.localStorage.setItem(key, JSON.stringify(basketObj));
+}
+
+function getBasketObj(key){
+    return JSON.parse(window.localStorage.getItem(key));
+}
+
+function checkBasketObj(key){
+    if(getBasketObj(key)){
+        basketObj = getBasketObj(key);
+    } else {
+        let basketObj0 = {};
+        items.forEach( (item) => {
+            let itemTitle = item.children[0].children[1].innerHTML.trim();
+            basketObj0[itemTitle] = 0;
+        });
+        setBasketObj('basket', basketObj0);
+    }
+}
+
+checkBasketObj('basket');
+
+console.log(getBasketObj('basket'));
+
+// basket icon
+
+function showBasketIcon(basketClass, i){
+    document.querySelector(`.${basketClass}`).classList.add(`${basketClass}_active`);
+    document.querySelector(`.${basketClass}`).classList.add(`${basketClass}_animated`);
+    document.querySelector(`.${basketClass}__items`).textContent = i;
+    setTimeout( () => {
+        document.querySelector(`.${basketClass}`).classList.remove(`${basketClass}_animated`);
+    }, 1000);
+}
+
+function hideBasketIcon(basketClass){
+    document.querySelector(`.${basketClass}`).classList.remove(`${basketClass}_active`);
+    document.querySelector(`.${basketClass}`).classList.remove(`${basketClass}_animated`);
+}
+
+function showOrHideBasketIcon(basketClass){
+    let i = 0;
+    basketObj = getBasketObj('basket');
+    for( let key in basketObj){
+        if( basketObj[key] > 0){
+            ++i;
         }
+    }
+    if( i > 0){
+        showBasketIcon(basketClass, i);
+    } else {
+        hideBasketIcon(basketClass);
+    }
+}
+
+showOrHideBasketIcon('basket');
+
+
+function addOneItemToLS( item ){
+    let itemTitle = item.children[0].children[1].innerHTML.trim();
+    let basketObj = getBasketObj('basket');
+    for( let key in basketObj){
+        if( key == itemTitle){
+            ++basketObj[key]; 
+        }
+    }
+    setBasketObj('basket', basketObj);
+}
+
+function addNumberOfItemToLS( item, value ){
+    let itemTitle = item.children[0].children[1].innerHTML.trim();
+    let basketObj = getBasketObj('basket');
+    for( let key in basketObj){
+        if( key == itemTitle){
+            basketObj[key] += value; 
+        }
+    }
+    setBasketObj('basket', basketObj);
+}
+
+function renderBasketWindow( key, value = 0 ){
+    if(value > 0){
+        let basketWindowContent = document.querySelector('.basket-window__content__items');
+
+        let addingItem = document.createElement('div');
+        addingItem.classList.add('basket-window__item');
+
+        let price;
+        items.forEach( (item) =>{
+
+            if( item.children[0].children[1].innerHTML.trim() == key ){
+                price = +item.children[0].children[5].innerHTML.trim().replace(/\W/g, '');
+                
+            }
+        });
+
+        let itemSum;
+
+        if(value == 1){
+            itemSum = price; 
+        } else 
+        if(value == 2 || value == 3){
+            itemSum = price*value*0.85;
+        } else
+        if(value > 3){
+            itemSum = price*value*0.75;
+        }
+
+        addingItem.innerHTML = `
+                <div class="basket-window__item__img">
+                    <img src="img/products/colombia.jpg" alt="">
+                </div>
+
+                <div class="basket-window__item__wrapper">
+                    <div class="basket-window__item__title">
+                        ${key}
+                    </div>
+
+                    <div class="basket-window__item__subtitle">
+                        Упаковка: 250 гр.
+                    </div>
+                </div>
+
+                <div class="basket-window__item__qantity">
+                    <div class="plus-minus">
+                        <img src="img/icons/minus.svg" alt="minus" id="minus">
+                    </div>
+
+                    <div class="basket-window__item__qantity__text">${value}</div>
+                    
+                    <div class="plus-minus">
+                        <img src="img/icons/plus.svg" alt="plus"  id="plus">
+                    </div>
+                </div>
+
+                <div class="basket-window__item__price">
+                    ${itemSum} р.
+                </div>
+
+                <div class="basket-window__item__delete">
+                    <img src="img/icons/plus.svg" alt="delete" id="delete">
+                </div>
+        `;
+
+        basketWindowContent.append(addingItem);
+        
+        addingItem.addEventListener('click', (event) => {
+            
+            if(event.target.getAttribute('id') == 'plus'){
+                plusItemToLS( addingItem.children[1].children[0].innerHTML.trim() );
+            } else 
+            if(event.target.getAttribute('id') == 'minus'){
+                minusItemToLS( addingItem.children[1].children[0].innerHTML.trim() );
+            } else
+            if(event.target.getAttribute('id') == 'delete'){
+                deleteItemToLS( addingItem.children[1].children[0].innerHTML.trim() );
+            }
+        });
+
+    } else {
+        return;
+    }
+
+    
+}
+
+function basketFromLSToBasketWindow(basketObj){
+    let basketWindowContent = document.querySelector('.basket-window__content__items');
+    basketWindowContent.innerHTML = '';
+
+    for( let key in basketObj){
+        
+        renderBasketWindow( key, basketObj[key] );
+    }
+
+    let itemsSumArr = document.querySelectorAll('.basket-window__item__price');
+    
+    let sum = 0;
+    
+
+    itemsSumArr.forEach( (item) => {
+        sum += +item.innerHTML.trim().replace(/\D/g, '');
     });
-});
-//get items from LocalStorage
 
-// post items to basket window
+    let basketWindowSumm = document.querySelector('.basket-window__summ');
+    basketWindowSumm.textContent = `Сумма: ${sum} р.`;
+}
 
-// change # of items on basket icon
+function plusItemToLS( itemTitle ){
+    basketObj = getBasketObj('basket');
+    for( let key in basketObj){
+        if( key == itemTitle){
+            ++basketObj[key];
+        }
+    }
+    setBasketObj( 'basket', basketObj);
+    basketFromLSToBasketWindow( getBasketObj('basket') );
+}
 
+function minusItemToLS( itemTitle ){
+    basketObj = getBasketObj('basket');
+    for( let key in basketObj){
+        if( key == itemTitle && basketObj[key] > 1){
+            --basketObj[key];
+        }
+    }
+    setBasketObj( 'basket', basketObj);
+    basketFromLSToBasketWindow( getBasketObj('basket') );
+}
 
-
-
+function deleteItemToLS( itemTitle ){
+    basketObj = getBasketObj('basket');
+    for( let key in basketObj){
+        if( key == itemTitle ){
+            basketObj[key] = 0;
+        }
+    }
+    setBasketObj( 'basket', basketObj);
+    basketFromLSToBasketWindow( getBasketObj('basket') );
+}

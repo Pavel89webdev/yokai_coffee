@@ -353,6 +353,7 @@ function minusItemToLS( itemTitle ){
     }
     setBasketObj( 'basket', basketObj);
     basketFromLSToBasketWindow( getBasketObj('basket') );
+    showOrHideBasketIcon('basket');
 }
 
 function deleteItemToLS( itemTitle ){
@@ -364,4 +365,61 @@ function deleteItemToLS( itemTitle ){
     }
     setBasketObj( 'basket', basketObj);
     basketFromLSToBasketWindow( getBasketObj('basket') );
+}
+
+const form = document.querySelector('form');
+form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    sendOrder();
+});
+
+async function sendOrder () {
+
+    let formData = new FormData(form);
+
+    const titles = document.querySelectorAll('.basket-window__item__title'),
+          quantities = document.querySelectorAll('.basket-window__item__qantity__text'),
+          prices = document.querySelectorAll('.basket-window__item__price'),
+          summ = document.querySelector('.basket-window__summ');
+
+    console.log(titles[0].textContent.replace(/\n/gm, '').trim());
+    console.log(quantities[0].textContent.replace(/\n/gm, '').trim());
+    console.log(prices[0].textContent.replace(/\n/gm, '').trim());
+
+
+    let itemArr = [];
+    itemArr = itemArr.concat(1, 3, 5);
+
+    console.log(itemArr);
+    //formData.append( 'item1', 'YES');
+
+    let response = await fetch('mailer/smart.php', {
+        method: 'POST',
+        body: formData
+    });
+
+    let result = await response;
+
+    if(result.status == 200){
+        console.log(result);
+        closeBasketWindow();
+        window.localStorage.clear();
+        checkBasketObj('basket');
+        basketFromLSToBasketWindow( getBasketObj('basket') );
+        showOrHideBasketIcon('basket');
+        goToThankYouPage();
+        
+    } else {
+        showErrorMessage();
+    }
+
+    console.log(response);
+}
+
+function goToThankYouPage(){
+    console.log('go to thankyou page');
+}
+
+function showErrorMessage(){
+    console.log('Something goes wrong');
 }

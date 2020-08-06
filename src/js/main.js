@@ -380,17 +380,34 @@ async function sendOrder () {
     const titles = document.querySelectorAll('.basket-window__item__title'),
           quantities = document.querySelectorAll('.basket-window__item__qantity__text'),
           prices = document.querySelectorAll('.basket-window__item__price'),
-          summ = document.querySelector('.basket-window__summ');
+          summElem = document.querySelector('.basket-window__summ');
 
-    console.log(titles[0].textContent.replace(/\n/gm, '').trim());
-    console.log(quantities[0].textContent.replace(/\n/gm, '').trim());
-    console.log(prices[0].textContent.replace(/\n/gm, '').trim());
+    // console.log(titles[0].textContent.replace(/\n/gm, '').trim());
+    // console.log(quantities[0].textContent.replace(/\n/gm, '').trim());
+    // console.log(prices[0].textContent.replace(/\n/gm, '').trim());
 
+    function addItemToFromData( titles, quantities, prices){
+        for( let i = 0; i < titles.length; ++i){
+            let itemKey = `item${i + 1}`;
 
-    let itemArr = [];
-    itemArr = itemArr.concat(1, 3, 5);
+            let title = (titles[i].textContent.replace(/\n/gm, '').trim());
+            let quantity = (quantities[i].textContent.replace(/\n/gm, '').trim());
+            let price = (prices[i].textContent.replace(/\n/gm, '').trim());
 
-    console.log(itemArr);
+            let itemValue = `${title}: ${quantity}шт., за ${price}`;
+
+            formData.append( itemKey, itemValue);
+        }
+
+        let summ = summElem.textContent.replace(/\n/gm, '').trim();
+
+        formData.append('summ', summ);
+    }
+
+    addItemToFromData( titles, quantities, prices);
+
+    console.log(formData.get('item1'));
+
     //formData.append( 'item1', 'YES');
 
     let response = await fetch('mailer/smart.php', {

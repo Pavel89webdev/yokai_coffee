@@ -4618,32 +4618,45 @@ function sendOrder() {
 
 function _sendOrder() {
   _sendOrder = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-    var formData, titles, quantities, prices, summ, itemArr, response, result;
+    var formData, titles, quantities, prices, summElem, addItemToFromData, response, result;
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            formData = new FormData(form);
-            titles = document.querySelectorAll('.basket-window__item__title'), quantities = document.querySelectorAll('.basket-window__item__qantity__text'), prices = document.querySelectorAll('.basket-window__item__price'), summ = document.querySelector('.basket-window__summ');
-            console.log(titles[0].textContent.replace(/\n/gm, '').trim());
-            console.log(quantities[0].textContent.replace(/\n/gm, '').trim());
-            console.log(prices[0].textContent.replace(/\n/gm, '').trim());
-            itemArr = [];
-            itemArr = itemArr.concat(1, 3, 5);
-            console.log(itemArr); //formData.append( 'item1', 'YES');
+            addItemToFromData = function _addItemToFromData(titles, quantities, prices) {
+              for (var i = 0; i < titles.length; ++i) {
+                var itemKey = "item".concat(i + 1);
+                var title = titles[i].textContent.replace(/\n/gm, '').trim();
+                var quantity = quantities[i].textContent.replace(/\n/gm, '').trim();
+                var price = prices[i].textContent.replace(/\n/gm, '').trim();
+                var itemValue = "".concat(title, ": ").concat(quantity, "\u0448\u0442., \u0437\u0430 ").concat(price);
+                formData.append(itemKey, itemValue);
+              }
 
-            _context.next = 10;
+              var summ = summElem.textContent.replace(/\n/gm, '').trim();
+              formData.append('summ', summ);
+            };
+
+            formData = new FormData(form);
+            titles = document.querySelectorAll('.basket-window__item__title'), quantities = document.querySelectorAll('.basket-window__item__qantity__text'), prices = document.querySelectorAll('.basket-window__item__price'), summElem = document.querySelector('.basket-window__summ'); // console.log(titles[0].textContent.replace(/\n/gm, '').trim());
+            // console.log(quantities[0].textContent.replace(/\n/gm, '').trim());
+            // console.log(prices[0].textContent.replace(/\n/gm, '').trim());
+
+            addItemToFromData(titles, quantities, prices);
+            console.log(formData.get('item1')); //formData.append( 'item1', 'YES');
+
+            _context.next = 7;
             return fetch('mailer/smart.php', {
               method: 'POST',
               body: formData
             });
 
-          case 10:
+          case 7:
             response = _context.sent;
-            _context.next = 13;
+            _context.next = 10;
             return response;
 
-          case 13:
+          case 10:
             result = _context.sent;
 
             if (result.status == 200) {
@@ -4660,7 +4673,7 @@ function _sendOrder() {
 
             console.log(response);
 
-          case 16:
+          case 13:
           case "end":
             return _context.stop();
         }

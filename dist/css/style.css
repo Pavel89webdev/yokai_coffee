@@ -2325,6 +2325,8 @@ hr {
     width: 100%;
     min-height: 500px;
     background-color: #fff; }
+    .basket-window__content__items {
+      min-height: 50px; }
   .basket-window__item {
     margin-top: 20px;
     width: 100%;
@@ -2378,6 +2380,13 @@ hr {
       .basket-window__item__delete img {
         width: 140%;
         transform: rotate(45deg); }
+    .basket-window__item__empty {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 16px;
+      font-weight: 500;
+      min-height: 50px; }
   .basket-window__summ {
     display: block;
     text-align: right;
@@ -2415,6 +2424,53 @@ hr {
   .basket-window__form__button {
     width: 100%;
     margin-top: 40px; }
+    .basket-window__form__button__img {
+      display: block; }
+      .basket-window__form__button__img_hide {
+        display: none; }
+    .basket-window__form__button__text {
+      margin: 0 0 0 0;
+      display: block; }
+      .basket-window__form__button__text_hide {
+        display: none; }
+
+.error-window {
+  display: none; }
+  .error-window_active {
+    display: block; }
+  .error-window__fixed-close {
+    display: block;
+    font-size: 40px;
+    text-align: right;
+    width: 100%;
+    padding-right: 50px;
+    margin-top: 40px;
+    line-height: 1;
+    width: 100%;
+    height: 40px;
+    color: #fff;
+    cursor: pointer; }
+  .error-window__fixed-overlay {
+    position: fixed;
+    overflow: auto;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 10; }
+  .error-window__content {
+    display: block;
+    margin-top: 40px;
+    padding: 40px;
+    width: 100%;
+    min-height: 500px;
+    background-color: #fff; }
+    .error-window__content a {
+      color: #262626;
+      font-weight: 600; }
+      .error-window__content a:hover {
+        text-decoration: none; }
 
 @media (max-width: 992px) {
   .tabs__selector__tab {

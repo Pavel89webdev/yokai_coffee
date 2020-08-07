@@ -4424,8 +4424,8 @@ function closeBasketWindow() {
 
 
 var basketObj = {}; //clean for test
-
-window.localStorage.clear(); //chek LS
+//window.localStorage.clear();
+//chek LS
 
 function setBasketObj(key, basketObj) {
   window.localStorage.setItem(key, JSON.stringify(basketObj));
@@ -4465,6 +4465,14 @@ function hideBasketIcon(basketClass) {
   document.querySelector(".".concat(basketClass)).classList.remove("".concat(basketClass, "_animated"));
 }
 
+function addEmptyBasketMassage(basketContentClass, basketItemClass) {
+  var emptyMessage = document.createElement('div');
+  emptyMessage.classList.add("".concat(basketItemClass, "__empty"));
+  emptyMessage.textContent = 'Козина пуста';
+  console.log(emptyMessage);
+  document.querySelector(".".concat(basketContentClass)).append(emptyMessage);
+}
+
 function showOrHideBasketIcon(basketClass) {
   var i = 0;
   basketObj = getBasketObj('basket');
@@ -4479,6 +4487,7 @@ function showOrHideBasketIcon(basketClass) {
     showBasketIcon(basketClass, i);
   } else {
     hideBasketIcon(basketClass);
+    addEmptyBasketMassage('basket-window__content__items', 'basket-window__item');
   }
 }
 
@@ -4549,6 +4558,8 @@ function renderBasketWindow(key) {
   }
 }
 
+basketFromLSToBasketWindow(getBasketObj('basket'));
+
 function basketFromLSToBasketWindow(basketObj) {
   var basketWindowContent = document.querySelector('.basket-window__content__items');
   basketWindowContent.innerHTML = '';
@@ -4604,6 +4615,7 @@ function deleteItemToLS(itemTitle) {
 
   setBasketObj('basket', basketObj);
   basketFromLSToBasketWindow(getBasketObj('basket'));
+  showOrHideBasketIcon('basket');
 }
 
 var form = document.querySelector('form');
@@ -4637,30 +4649,28 @@ function _sendOrder() {
               formData.append('summ', summ);
             };
 
+            showLoadingMessage();
             formData = new FormData(form);
-            titles = document.querySelectorAll('.basket-window__item__title'), quantities = document.querySelectorAll('.basket-window__item__qantity__text'), prices = document.querySelectorAll('.basket-window__item__price'), summElem = document.querySelector('.basket-window__summ'); // console.log(titles[0].textContent.replace(/\n/gm, '').trim());
-            // console.log(quantities[0].textContent.replace(/\n/gm, '').trim());
-            // console.log(prices[0].textContent.replace(/\n/gm, '').trim());
-
+            titles = document.querySelectorAll('.basket-window__item__title'), quantities = document.querySelectorAll('.basket-window__item__qantity__text'), prices = document.querySelectorAll('.basket-window__item__price'), summElem = document.querySelector('.basket-window__summ');
             addItemToFromData(titles, quantities, prices);
-            console.log(formData.get('item1')); //formData.append( 'item1', 'YES');
-
-            _context.next = 7;
+            console.log(formData.get('item1'));
+            _context.next = 8;
             return fetch('mailer/smart.php', {
               method: 'POST',
               body: formData
             });
 
-          case 7:
+          case 8:
             response = _context.sent;
-            _context.next = 10;
-            return response;
+            _context.next = 11;
+            return response.text();
 
-          case 10:
+          case 11:
             result = _context.sent;
+            console.log(result);
 
-            if (result.status == 200) {
-              console.log(result);
+            if (result === 'send ok') {
+              hideLoadingMessage();
               closeBasketWindow();
               window.localStorage.clear();
               checkBasketObj('basket');
@@ -4668,12 +4678,12 @@ function _sendOrder() {
               showOrHideBasketIcon('basket');
               goToThankYouPage();
             } else {
+              hideLoadingMessage();
+              closeBasketWindow();
               showErrorMessage();
             }
 
-            console.log(response);
-
-          case 13:
+          case 14:
           case "end":
             return _context.stop();
         }
@@ -4689,6 +4699,23 @@ function goToThankYouPage() {
 
 function showErrorMessage() {
   console.log('Something goes wrong');
+}
+
+function showLoadingMessage() {
+  var orderBtn = document.querySelector('#orderSubmit'),
+      spinnerImg = document.querySelector('.basket-window__form__button__img'),
+      orderBtnText = document.querySelector('.basket-window__form__button__text');
+  orderBtnText.classList.add('basket-window__form__button__text_hide');
+  spinnerImg.classList.remove('basket-window__form__button__img_hide');
+  orderBtn.setAttribute('disabled', 'disabled');
+}
+
+function hideLoadingMessage() {
+  var orderBtn = document.querySelector('#orderSubmit'),
+      spinnerImg = document.querySelector('.basket-window__form__button__img'),
+      orderBtnText = document.querySelector('.basket-window__form__button__text');
+  orderBtn.textContent = 'Оформить заказ';
+  orderBtn.removeAttribute('disabled');
 }
 
 /***/ })

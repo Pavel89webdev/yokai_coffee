@@ -1,0 +1,37 @@
+.error-window
+    display: none
+    &_active
+        display: block
+    &__fixed-close
+        display: block
+        font-size: 40px
+        text-align: right
+        width: 100%
+        padding-right: 50px
+        margin-top: 40px
+        line-height: 1
+        width: 100%
+        height: 40px
+        color: #fff
+        cursor: pointer
+    &__fixed-overlay
+        position: fixed
+        overflow: auto
+        top: 0px
+        left: 0px
+        width: 100%
+        height: 100%
+        background-color: rgba(0, 0, 0, .7)
+        z-index: 10
+    &__content
+        display: block
+        margin-top: 40px
+        padding: 40px
+        width: 100%
+        min-height: 500px
+        background-color: #fff
+        & a
+            color: $text_grey
+            font-weight: 600
+            &:hover
+                text-decoration: none

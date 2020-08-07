@@ -520,9 +520,31 @@
                             <p>Наличными при получении</p>
                         </div>
                         <div class="basket-window__form__button">
-                            <button id="OrderSubmit" class="btn__item btn__item_wide btn__item_black">Оформить заказ</button>
+                            <button id="orderSubmit" class="btn__item btn__item_wide btn__item_black">
+                                <p class="basket-window__form__button__text">Оформить заказ</p>
+                                <img class="basket-window__form__button__img basket-window__form__button__img_hide" src="img/icons/spinner.svg" alt="waiting">
+                            </button>
                         </div>
                     </form>
+                
+            </div>
+        </div>
+
+    </div>
+
+    <div class="error-window error-window_active error-window__fixed-overlay">
+        <div class="error-window__fixed-close">&#10005;</div>
+        <div class="container">
+            <div class="error-window__content offset-xl-3 col-xl-6 offset-xl-3 offset-lg-2 col-lg-8 offset-lg-2 offset-md-1 col-md-10 offset-md-1">
+                <div class="section__main-title">
+                    <div class="title__section-title_main">Ошибка.</div>
+                </div>
+                <div class="title_secondary">
+                    Что-то пошло не так и ваш заказ не был отправлен.
+                    <br>
+                    свяжитесь с нами пожалуйста в <a href="https://www.instagram.com/yokaicoffee/">Инстаграм</a> или по <a href="tel:+79215861005">телефону.</a>
+                </div>
+                <div class="error-window__content__inst-logo"></div>
                 
             </div>
         </div>

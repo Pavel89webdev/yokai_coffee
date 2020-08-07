@@ -140,7 +140,7 @@ let basketObj = {};
 
 
 //clean for test
-window.localStorage.clear();
+//window.localStorage.clear();
 
 //chek LS
 
@@ -185,6 +185,14 @@ function hideBasketIcon(basketClass){
     document.querySelector(`.${basketClass}`).classList.remove(`${basketClass}_animated`);
 }
 
+function addEmptyBasketMassage(basketContentClass, basketItemClass){
+    const emptyMessage = document.createElement('div');
+    emptyMessage.classList.add(`${basketItemClass}__empty`);
+    emptyMessage.textContent = 'Козина пуста';
+    console.log(emptyMessage);
+    document.querySelector(`.${basketContentClass}`).append(emptyMessage);
+}
+
 function showOrHideBasketIcon(basketClass){
     let i = 0;
     basketObj = getBasketObj('basket');
@@ -197,6 +205,7 @@ function showOrHideBasketIcon(basketClass){
         showBasketIcon(basketClass, i);
     } else {
         hideBasketIcon(basketClass);
+        addEmptyBasketMassage('basket-window__content__items', 'basket-window__item');
     }
 }
 
@@ -311,6 +320,8 @@ function renderBasketWindow( key, value = 0 ){
     
 }
 
+basketFromLSToBasketWindow(getBasketObj('basket'));
+
 function basketFromLSToBasketWindow(basketObj){
     let basketWindowContent = document.querySelector('.basket-window__content__items');
     basketWindowContent.innerHTML = '';
@@ -332,6 +343,8 @@ function basketFromLSToBasketWindow(basketObj){
     let basketWindowSumm = document.querySelector('.basket-window__summ');
     basketWindowSumm.textContent = `Сумма: ${sum} р.`;
 }
+
+
 
 function plusItemToLS( itemTitle ){
     basketObj = getBasketObj('basket');
@@ -365,7 +378,9 @@ function deleteItemToLS( itemTitle ){
     }
     setBasketObj( 'basket', basketObj);
     basketFromLSToBasketWindow( getBasketObj('basket') );
+    showOrHideBasketIcon('basket');
 }
+
 
 const form = document.querySelector('form');
 form.addEventListener('submit', (event) => {
@@ -375,16 +390,14 @@ form.addEventListener('submit', (event) => {
 
 async function sendOrder () {
 
+    showLoadingMessage();
+
     let formData = new FormData(form);
 
     const titles = document.querySelectorAll('.basket-window__item__title'),
           quantities = document.querySelectorAll('.basket-window__item__qantity__text'),
           prices = document.querySelectorAll('.basket-window__item__price'),
           summElem = document.querySelector('.basket-window__summ');
-
-    // console.log(titles[0].textContent.replace(/\n/gm, '').trim());
-    // console.log(quantities[0].textContent.replace(/\n/gm, '').trim());
-    // console.log(prices[0].textContent.replace(/\n/gm, '').trim());
 
     function addItemToFromData( titles, quantities, prices){
         for( let i = 0; i < titles.length; ++i){
@@ -408,17 +421,17 @@ async function sendOrder () {
 
     console.log(formData.get('item1'));
 
-    //formData.append( 'item1', 'YES');
-
     let response = await fetch('mailer/smart.php', {
         method: 'POST',
         body: formData
     });
 
-    let result = await response;
+    let result = await response.text();
 
-    if(result.status == 200){
-        console.log(result);
+    console.log(result);
+
+    if(result === 'send ok'){
+        hideLoadingMessage();
         closeBasketWindow();
         window.localStorage.clear();
         checkBasketObj('basket');
@@ -427,10 +440,10 @@ async function sendOrder () {
         goToThankYouPage();
         
     } else {
+        hideLoadingMessage();
+        closeBasketWindow();
         showErrorMessage();
     }
-
-    console.log(response);
 }
 
 function goToThankYouPage(){
@@ -439,4 +452,23 @@ function goToThankYouPage(){
 
 function showErrorMessage(){
     console.log('Something goes wrong');
+}
+
+function showLoadingMessage(){
+    const orderBtn = document.querySelector('#orderSubmit'),
+          spinnerImg = document.querySelector('.basket-window__form__button__img'),
+          orderBtnText = document.querySelector('.basket-window__form__button__text');
+    
+    orderBtnText.classList.add('basket-window__form__button__text_hide');
+    spinnerImg.classList.remove('basket-window__form__button__img_hide');
+    orderBtn.setAttribute('disabled', 'disabled');
+}
+
+function hideLoadingMessage(){
+    const orderBtn = document.querySelector('#orderSubmit'),
+          spinnerImg = document.querySelector('.basket-window__form__button__img'),
+          orderBtnText = document.querySelector('.basket-window__form__button__text');
+
+    orderBtn.textContent = 'Оформить заказ';
+    orderBtn.removeAttribute('disabled');
 }
